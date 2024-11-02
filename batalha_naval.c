@@ -1039,12 +1039,12 @@ int main()
                 if(p_total_jg1 > p_total_jg2){
 
 
-                    printf(BOLD_RED"O jogador 1 venceu por %d por %d pontos do jogador 2\n"RESET,p_total_jg1,p_total_jg2);
+                    printf(BOLD_RED"O jogador 1 venceu por %d por %d pontos do jogador 2\n",p_total_jg1,p_total_jg2);
 
 
                 }else if(p_total_jg2 > p_total_jg1){
 
-                    printf("O jogador 2 venceu por %d por %d pontos do jogador 1\n"RESET,p_total_jg2,p_total_jg1);        
+                    printf("O jogador 2 venceu por %d por %d pontos do jogador 1\n",p_total_jg2,p_total_jg1);        
 
                 }else 
 
