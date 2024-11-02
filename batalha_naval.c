@@ -1,9 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//usar tempo de execução
+#include <unistd.h> 
 
 #define tamanho_i_j 20
 
+// Reset (para retornar à cor padrão do terminal)
+#define RESET "\033[0m"
+
+// Cores de texto
+#define BLACK "\033[0;30m"
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define BLUE "\033[0;34m"
+#define MAGENTA "\033[0;35m"
+#define CYAN "\033[0;36m"
+#define WHITE "\033[0;37m"
+
+// Cores de texto em negrito
+#define BOLD_BLACK "\033[1;30m"
+#define BOLD_RED "\033[1;31m"
+#define BOLD_GREEN "\033[1;32m"
+#define BOLD_YELLOW "\033[1;33m"
+#define BOLD_BLUE "\033[1;34m"
+#define BOLD_MAGENTA "\033[1;35m"
+#define BOLD_CYAN "\033[1;36m"
+#define BOLD_WHITE "\033[1;37m"
+
+ 
 typedef struct coordenadas_ataque
 {
 
@@ -18,6 +44,7 @@ typedef struct posicao_navios
 
     char tipo_nav[2];
     char oriente[2];
+
     int  posicao_X;
     int  posicao_Y;
      
@@ -76,9 +103,9 @@ char **posicao_navio_jg1(jogadores entrada_jg, int n_navios)
             for(int b = 0; b < n_navios; b++)
             {
 
-                printf("Esse eh o navios %d/%d\n\n", b+1, n_navios);
+                printf(BOLD_WHITE"Jogador 1 esse \xC3\xA9 o navio %d/%d\n\n", b+1, n_navios);
             
-                printf("Tipo C/E/P\n");
+                printf("Tipos de navios C/E/P\n");
                 fgets(entrada_jg.navios1[b].tipo_nav , 2 , stdin);
                 entrada_jg.navios1[b].tipo_nav[strcspn(entrada_jg.navios1[b].tipo_nav, "\n")] = '\0';
 
@@ -86,12 +113,12 @@ char **posicao_navio_jg1(jogadores entrada_jg, int n_navios)
                 getchar();
         
 
-                printf("Orientacao no tabuleiro\n");
+                printf("Orienta\303\247\303\243o no tabuleiro\n");
 
                 fgets(entrada_jg.navios1[b].oriente, 2 , stdin);
                 entrada_jg.navios1[b].oriente[strcspn(entrada_jg.navios1[b].oriente, "\n")] = '\0';
 
-                printf("Posicao no tabuleiro\n");
+                printf("Posi\xC3\xA7\xC3\xA3o no tabuleiro\n");
 
                 scanf("%d %d", &entrada_jg.navios1[b].posicao_X, &entrada_jg.navios1[b].posicao_Y);
             
@@ -258,22 +285,22 @@ char **posicao_navio_jg2(jogadores entrada_jg2, int n_navios){
             for(int b = 0; b < n_navios; b++)
             {
 
-                printf("Esse eh o navios %d/%d\n\n", b+1, n_navios);
+                printf("Jogador 2 esse \xC3\xA9 o navio %d/%d\n\n", b+1, n_navios);
             
 
-                printf("Tipo C/E/P\n");
+                printf("Tipos de navios C/E/P\n");
                 fgets(entrada_jg2 .navios2[b].tipo_nav , 2 , stdin);
                 entrada_jg2 .navios2[b].tipo_nav[strcspn(entrada_jg2 .navios2[b].tipo_nav, "\n")] = '\0';
 
                 getchar();
         
 
-                printf("Orientacao no tabuleiro\n");
+                printf("Orienta\303\247\303\243o no tabuleiro\n");
 
                 fgets(entrada_jg2 .navios2[b].oriente, 2 , stdin);
                 entrada_jg2 .navios2[b].oriente[strcspn(entrada_jg2 .navios2[b].oriente, "\n")] = '\0';
 
-                printf("Posicao no tabuleiro\n");
+                printf("Posi\xC3\xA7\xC3\xA3o no tabuleiro\n");
 
                 scanf("%d %d", &entrada_jg2 .navios2[b].posicao_X, &entrada_jg2 .navios2[b].posicao_Y);
             
@@ -416,12 +443,12 @@ char **ataque_jogador1(jogadores atk_jg1,int n_ataques,char **tabuleiro_coor_ata
 {
 
 
-                printf("Jogador 1 escolha as coordenadas de ataque\n");
+                printf(BOLD_WHITE"Jogador 1 escolha as coordenadas de ataque\n");
     
             for(int i = 0 ; i < n_ataques ;i++)
             {
 
-                printf("Esse eh o ataque %d/%d \n",i+1,n_ataques);
+                printf("Esse \xC3\xA9 o ataque %d/%d \n",i+1,n_ataques);
 
                 //aqui nos apemas atribuimos esses valores das coordenas (muito importante definir pontuação)
                 scanf("%d %d", &atk_jg1 .navios1->atk[i].cord_atk_X, &atk_jg1.navios1->atk[i].cord_atk_Y);
@@ -633,10 +660,10 @@ int  calculo_pontos_jg1(jogadores n_pontos_jg1, jogadores navios_jg2,int n_navio
         for(int i = 0 ; i < n_ataques ;i++){
 
     
-            printf("Esse eh o ataque %d/%d \n",i+1,n_ataques);
+            printf("Esse \xC3\xA9 o ataque %d/%d \n",i+1,n_ataques);
 
             //aqui nos apemas atribuimos esses valores das coordenas (muito importante definir pontuação)
-            scanf("%d %d",&atk_jg2 .navios2->atk[i].cord_atk_X, &atk_jg2 .navios2->atk[i].cord_atk_Y);
+            scanf("%d %d"RESET,&atk_jg2 .navios2->atk[i].cord_atk_X, &atk_jg2 .navios2->atk[i].cord_atk_Y);
 
             //como dito, colocamos as coordenas de ataque no tabuleiro 2
             tabuleiro_coor_ataques1[atk_jg2 .navios2->atk[i].cord_atk_X][atk_jg2 .navios2->atk[i].cord_atk_Y] = 'O';
@@ -827,44 +854,37 @@ int calculo_pontos_jg2(jogadores navios_jg1, jogadores n_pontos_jg2, int n_navio
 void libera_mallocs(int quantidade_ataques, int quantidade_navios, int quantidade_jogadores,jogadores libera_estrutura, char **libera_tabuleiro_jg1, char **libera_tabuleiro_jg2){
 
 
-
+            //libera quantidade de elementos por linha
             for(int i = 0; i < tamanho_i_j; i++)
             {
 
-            
                 free(libera_tabuleiro_jg1[i]);
-
 
                 free(libera_tabuleiro_jg2[i]);
 
             }
 
-
-
+                //libera "colula"
                 free(libera_tabuleiro_jg1);
 
                 free(libera_tabuleiro_jg2);
-        
 
+                //libera estruturas
                 free(libera_estrutura.navios2->atk);
 
                 free(libera_estrutura.navios1->atk);
 
-            
                 free(libera_estrutura.navios2);
 
                 free(libera_estrutura.navios1);
             
-                
-
+            
 }
 
 
 int main()
 {   
 
-
- 
 
     int quantidade_navios;
 
@@ -875,19 +895,19 @@ int main()
 
                 jogadores j;
 
-                printf("         ____       _   _   \n");
-                printf("        | __ )     | \\ | |  \n");
-                printf("        |  _ \\     |  \\| |  \n");
-                printf("        | |_) |    | |\\  |  \n");
-                printf("        |____/     |_| \\_|  \n");
+                printf(BOLD_RED"            ____       _   _   \n"RESET);
+                printf(BOLD_BLUE"           | __ )     | \\ | |  \n"RESET);
+                printf(BOLD_MAGENTA"           |  _ \\     |  \\| |  \n"RESET);
+                printf(BOLD_GREEN"           | |_) |    | |\\  |  \n"RESET);
+                printf(BOLD_CYAN"           |____/     |_| \\_|  \n"RESET);
 
                 //escolha da quantidade de navios e ataques
-                printf("\n    Escolha o numero de navios por jogador:\n\n");
+                printf(BOLD_WHITE"\nEscolha o numero de navios por jogador:\n");
     
                 scanf("%d",&quantidade_navios);
 
 
-                printf("    Escolha a quantidade de ataques por jogador:\n");
+                printf("Escolha a quantidade de ataques por jogador:\n");
     
                 scanf("%d",&quantidade_ataques);
 
@@ -900,15 +920,10 @@ int main()
 
                 j.navios2 = malloc(quantidade_navios * sizeof(struct posicao_navios ));
 
-             
-
-                
-                
                 j.navios1->atk = malloc(quantidade_ataques * sizeof(struct  coordenadas_ataque));
 
                 j.navios2->atk = malloc(quantidade_ataques * sizeof(struct  coordenadas_ataque));
 
-           
 
                 //chamar funçao para definiar as coordenas do navio jogador 1
                 char **tab_jogador1 = posicao_navio_jg1(j,quantidade_navios);
@@ -936,13 +951,36 @@ int main()
                 int p_total_jg2 = calculo_pontos_jg2(j,j,quantidade_navios,quantidade_ataques);
 
 
-                //impressão do navios do jogaodr 1, com os respectivos navios e a coordenas de ataque do jogador 2
+                //impressão do navios do jogaodr 1, com os respectivos navios e a coordenas de ataque do jogador 1
                 for(int i = 0; i < tamanho_i_j ; i++)
                 {
                     for(int j = 0; j < tamanho_i_j ;j++)
                     {
+                        
+                        if(tabuleiro_final_jg1[i][j] == '~')
+                        {
+                    
 
-                    printf("%c ",tabuleiro_final_jg1[i][j]);
+                            printf(BOLD_CYAN"%c "RESET,tabuleiro_final_jg1[i][j]);
+
+
+                        }else if(tabuleiro_final_jg1[i][j] == 'O'){
+
+                            printf(BOLD_RED"%c "RESET,tabuleiro_final_jg1[i][j]);
+
+                        }else if(tabuleiro_final_jg1[i][j] == 'C'){
+
+                            printf(BOLD_YELLOW"%c "RESET,tabuleiro_final_jg1[i][j]);
+
+                        }else if(tabuleiro_final_jg1[i][j] == 'P'){
+
+                            printf(BOLD_GREEN"%c "RESET,tabuleiro_final_jg1[i][j]);
+
+                        }else if(tabuleiro_final_jg1[i][j] == 'E'){
+
+                            printf(BOLD_MAGENTA"%c "RESET,tabuleiro_final_jg1[i][j]);
+
+                        }
 
                     }
 
@@ -951,34 +989,66 @@ int main()
 
 
                 printf("\n");
-                //impressão do navios do jogaodr 2, com os respectivos navios e a coordenas de ataque do jogador 1
+                //impressão do navios do jogaodr 1, com os respectivos navios e a coordenas de ataque do jogador 2
                 for(int i = 0; i < tamanho_i_j ; i++)
                 {
                     for(int j = 0; j < tamanho_i_j ;j++)
                     {
+                        
+                        if(tabuleiro_final_jg2[i][j] == '~')
+                        {
+                    
 
-                    printf("%c ",tabuleiro_final_jg2[i][j]);
+                            printf(BOLD_CYAN"%c "RESET,tabuleiro_final_jg2[i][j]);
+
+
+                        }else if(tabuleiro_final_jg2[i][j] == 'O'){
+
+                            printf(BOLD_RED"%c "RESET,tabuleiro_final_jg2[i][j]);
+
+                        }else if(tabuleiro_final_jg2[i][j] == 'C'){
+
+                            printf(BOLD_YELLOW"%c "RESET,tabuleiro_final_jg2[i][j]);
+
+                        }else if(tabuleiro_final_jg2[i][j] == 'P'){
+
+                            printf(BOLD_GREEN"%c "RESET,tabuleiro_final_jg2[i][j]);
+
+                        }else if(tabuleiro_final_jg2[i][j] == 'E'){
+
+                            printf(BOLD_MAGENTA"%c "RESET,tabuleiro_final_jg2[i][j]);
+
+                        }
 
                     }
 
                     printf("\n");
                 }
 
-    
+
+                printf("\n");
                 //imprime o ganhador, caso contrario imprime os pontos de empate
+                //printf("Calculando pontua\xC3\xA7\xC3\xA3 em: ");
+    
+                for (int i = 5; i > 0; i--)
+                {
+                    printf("%d\r", i);
+                    fflush(stdout);
+                    sleep(1); // Atraso de 1 segundo
+                }
                 if(p_total_jg1 > p_total_jg2){
 
 
-                    printf("O jogador 1 venceu por %d por %d pontos do jogador 2\n",p_total_jg1,p_total_jg2);
+                    printf(BOLD_RED"O jogador 1 venceu por %d por %d pontos do jogador 2\n"RESET,p_total_jg1,p_total_jg2);
 
 
                 }else if(p_total_jg2 > p_total_jg1){
 
-                    printf("O jogador 2 venceu por %d por %d pontos do jogador 1\n",p_total_jg2,p_total_jg1);        
+                    printf("O jogador 2 venceu por %d por %d pontos do jogador 1\n"RESET,p_total_jg2,p_total_jg1);        
 
                 }else 
 
-                    printf("O jogo terminou em empate por %d\n",p_total_jg1);
+                    printf("O jogo terminou em empate por %d\n"RESET,p_total_jg1);
 
 
                     //chama funçao para liberar memorias alocadas
