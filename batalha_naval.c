@@ -963,7 +963,7 @@ int main()
 
                             printf(BOLD_CYAN"%c "RESET,tabuleiro_final_jg1[i][j]);
 
-ola
+
                         }else if(tabuleiro_final_jg1[i][j] == 'O'){
 
                             printf(BOLD_RED"%c "RESET,tabuleiro_final_jg1[i][j]);
